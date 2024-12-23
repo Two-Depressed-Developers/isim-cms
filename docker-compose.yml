@@ -1,0 +1,24 @@
+services:
+    strapiDB:
+        image: mysql:8
+        container_name: strapi-db
+        ports:
+            - "3306:3306"
+        env_file: .env
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        volumes:
+            - mysql-data:/var/lib/mysql
+        networks:
+            - strapi
+
+volumes:
+    mysql-data:
+
+networks:
+    strapi:
+        name: strapi
+        driver: bridge
