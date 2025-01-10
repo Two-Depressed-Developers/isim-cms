@@ -1,47 +1,49 @@
-version: "3"
 services:
-    strapi:
-        container_name: strapi
-        build: .
-        image: strapi:latest
-        restart: unless-stopped
-        env_file: .env
-        environment:
-            DATABASE_CLIENT: ${DATABASE_CLIENT}
-            DATABASE_HOST: strapiDB
-            DATABASE_NAME: ${DATABASE_NAME}
-            DATABASE_USERNAME: ${DATABASE_USERNAME}
-            DATABASE_PORT: ${DATABASE_PORT}
-            JWT_SECRET: ${JWT_SECRET}
-            ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
-            API_TOKEN_SALT: ${API_TOKEN_SALT}
-            DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-            NODE_ENV: ${NODE_ENV}
-        volumes:
-            - ./config:/opt/app/config
-            - ./src:/opt/app/src
-            - ./package.json:/opt/package.json
-            - ./package-lock.json:/opt/package-lock.json
 
-            - ./.env:/opt/app/.env
-            - ./public/uploads:/opt/app/public/uploads
-        ports:
-            - "1337:1337"
-        networks:
-            - strapi
 
-    strapiAdminer:
-        container_name: strapiAdminer
-        image: adminer
-        restart: unless-stopped
-        ports:
-            - "9090:8080"
-        environment:
-            - ADMINER_DEFAULT_SERVER=strapiDB
-        networks:
-            - strapi
+  strapi:
+    container_name: strapi
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE:-Dockerfile.dev} # Wybór pliku Dockerfile na podstawie zmiennej środowiskowej
+    image: strapi:${NODE_ENV:-development} # Unikalne obrazy dla dev i prod
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: strapiDB
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      NODE_ENV: ${NODE_ENV:-development}
+    volumes:
+      - ./config:/opt/app/config
+      - ./src:/opt/app/src
+      - ./package.json:/opt/package.json
+      - ./package-lock.json:/opt/package-lock.json
+      - ./.env:/opt/app/.env
+      - ./public/uploads:/opt/app/public/uploads
+    ports:
+      - "1337:1337"
+    networks:
+      - strapi
+
+  strapiAdminer:
+    container_name: strapiAdminer
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "9090:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=strapiDB
+    networks:
+      - strapi
 
 networks:
-    strapi:
-        name: strapi
-        driver: bridge
+  strapi:
+    name: strapi
+    driver: bridge

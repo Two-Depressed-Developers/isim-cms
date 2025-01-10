@@ -1,0 +1,88 @@
+{
+  "kind": "collectionType",
+  "collectionName": "members",
+  "info": {
+    "singularName": "member",
+    "pluralName": "members",
+    "displayName": "Member",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "enumeration",
+      "enum": [
+        "inż.",
+        "mgr",
+        "mgr inż.",
+        "dr",
+        "dr inż.",
+        "dr hab.",
+        "dr hab. inż.",
+        "prof.",
+        "prof. dr hab.",
+        "prof. dr hab. inż."
+      ]
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "USOSLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.link"
+    },
+    "SKOSLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.link"
+    },
+    "BADAPLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.link"
+    },
+    "PortfolioLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.link"
+    },
+    "forStudents": {
+      "type": "richtext"
+    },
+    "groupSupervisor": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::group.group",
+      "mappedBy": "supervisor"
+    },
+    "groupMembers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::group.group",
+      "mappedBy": "members"
+    }
+  }
+}
