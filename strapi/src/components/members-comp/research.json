@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_members_comp_research",
+  "info": {
+    "displayName": "Research"
+  },
+  "options": {},
+  "attributes": {
+    "PublicationsLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.link"
+    },
+    "ORCIDLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.link"
+    },
+    "ResearchgateLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.link"
+    },
+    "ReasercherIdLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.link"
+    }
+  }
+}

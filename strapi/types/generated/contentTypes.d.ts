@@ -429,7 +429,20 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
     phone: Schema.Attribute.String;
     photo: Schema.Attribute.Media<'images'>;
     PortfolioLink: Schema.Attribute.Component<'helpers.link', false>;
+    position: Schema.Attribute.Enumeration<
+      [
+        'Full professor',
+        'Associate professor',
+        'Assistant professor',
+        'Assistant',
+        'PhD Student',
+        'Technical staff',
+        'Secretary',
+      ]
+    >;
     publishedAt: Schema.Attribute.DateTime;
+    Research: Schema.Attribute.Component<'members-comp.research', false>;
+    room: Schema.Attribute.String;
     SKOSLink: Schema.Attribute.Component<'helpers.link', false>;
     title: Schema.Attribute.Enumeration<
       [

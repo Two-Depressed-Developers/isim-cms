@@ -83,6 +83,26 @@
       "relation": "manyToMany",
       "target": "api::group.group",
       "mappedBy": "members"
+    },
+    "Research": {
+      "type": "component",
+      "repeatable": false,
+      "component": "members-comp.research"
+    },
+    "room": {
+      "type": "string"
+    },
+    "position": {
+      "type": "enumeration",
+      "enum": [
+        "Full professor",
+        "Associate professor",
+        "Assistant professor",
+        "Assistant",
+        "PhD Student",
+        "Technical staff",
+        "Secretary"
+      ]
     }
   }
 }
