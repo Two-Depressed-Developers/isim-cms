@@ -1,33 +1,26 @@
 {
-  "collectionName": "components_helpers_links",
+  "collectionName": "components_navigation_sub_links",
   "info": {
-    "displayName": "Link",
+    "displayName": "SubLink",
     "icon": "link",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "URL": {
-      "type": "string",
-      "required": true
-    },
     "label": {
       "type": "string"
     },
     "isExternal": {
       "type": "boolean",
-      "default": false,
+      "default": false
+    },
+    "URL": {
+      "type": "string",
       "required": true
     },
     "openInNewWindow": {
       "type": "boolean",
       "default": false
-    },
-    "subLinks": {
-      "displayName": "SubLink",
-      "type": "component",
-      "repeatable": true,
-      "component": "navigation.sub-link"
     },
     "page": {
       "type": "relation",

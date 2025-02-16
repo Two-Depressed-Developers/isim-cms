@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_helpers_simple_links",
+  "info": {
+    "displayName": "Simple Link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "URL": {
+      "type": "text",
+      "required": true
+    },
+    "isExternal": {
+      "type": "boolean",
+      "default": false
+    },
+    "openInNewWindow": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -16,22 +16,23 @@
       "type": "string",
       "required": true
     },
-    "supervisor": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::member.member",
-      "inversedBy": "groupSupervisor"
+    "description": {
+      "type": "text"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.simple-link"
     },
     "members": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::member.member",
-      "inversedBy": "groupMembers"
+      "relation": "oneToMany",
+      "target": "api::member.member"
     },
-    "siteLink": {
-      "type": "component",
-      "repeatable": false,
-      "component": "helpers.link"
+    "supervisor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member"
     }
   }
 }

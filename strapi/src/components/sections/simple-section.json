@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_sections_simple_sections",
+  "info": {
+    "displayName": "Simple section",
+    "icon": "layer",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "images": {
+      "type": "component",
+      "repeatable": true,
+      "component": "helpers.image-link"
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.link"
+    },
+    "text": {
+      "type": "richtext"
+    }
+  }
+}
