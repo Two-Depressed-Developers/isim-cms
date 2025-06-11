@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_helpers_image_links",
+  "info": {
+    "displayName": "Image Link",
+    "icon": "link"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "alt": {
+      "type": "text"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.link"
+    }
+  }
+}

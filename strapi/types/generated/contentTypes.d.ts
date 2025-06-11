@@ -369,6 +369,36 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiGlobalPageGlobalPage extends Struct.SingleTypeSchema {
+  collectionName: 'global_pages';
+  info: {
+    description: '';
+    displayName: 'Global Page';
+    pluralName: 'global-pages';
+    singularName: 'global-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    footer: Schema.Attribute.Component<'navigation.footer', false>;
+    header: Schema.Attribute.Component<'navigation.header', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::global-page.global-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGroupGroup extends Struct.CollectionTypeSchema {
   collectionName: 'groups';
   info: {
@@ -384,14 +414,15 @@ export interface ApiGroupGroup extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    link: Schema.Attribute.Component<'helpers.simple-link', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::group.group'> &
       Schema.Attribute.Private;
-    members: Schema.Attribute.Relation<'manyToMany', 'api::member.member'>;
+    members: Schema.Attribute.Relation<'oneToMany', 'api::member.member'>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    siteLink: Schema.Attribute.Component<'helpers.link', false>;
-    supervisor: Schema.Attribute.Relation<'manyToOne', 'api::member.member'>;
+    supervisor: Schema.Attribute.Relation<'oneToOne', 'api::member.member'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -410,16 +441,12 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    BADAPLink: Schema.Attribute.Component<'helpers.link', false>;
+    BADAPLink: Schema.Attribute.Component<'helpers.simple-link', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     email: Schema.Attribute.Email;
-    firstName: Schema.Attribute.String & Schema.Attribute.Required;
-    forStudents: Schema.Attribute.RichText;
-    groupMembers: Schema.Attribute.Relation<'manyToMany', 'api::group.group'>;
-    groupSupervisor: Schema.Attribute.Relation<'oneToMany', 'api::group.group'>;
-    lastName: Schema.Attribute.String & Schema.Attribute.Required;
+    fullName: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -428,7 +455,7 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     phone: Schema.Attribute.String;
     photo: Schema.Attribute.Media<'images'>;
-    PortfolioLink: Schema.Attribute.Component<'helpers.link', false>;
+    PortfolioLink: Schema.Attribute.Component<'helpers.simple-link', false>;
     position: Schema.Attribute.Enumeration<
       [
         'Full professor',
@@ -441,9 +468,12 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
       ]
     >;
     publishedAt: Schema.Attribute.DateTime;
-    Research: Schema.Attribute.Component<'members-comp.research', false>;
     room: Schema.Attribute.String;
-    SKOSLink: Schema.Attribute.Component<'helpers.link', false>;
+    sections: Schema.Attribute.DynamicZone<
+      ['sections.simple-section', 'members-comp.research']
+    >;
+    SKOSLink: Schema.Attribute.Component<'helpers.simple-link', false>;
+    slug: Schema.Attribute.UID<'fullName'>;
     title: Schema.Attribute.Enumeration<
       [
         'in\u017C.',
@@ -461,7 +491,33 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    USOSLink: Schema.Attribute.Component<'helpers.link', false>;
+    USOSLink: Schema.Attribute.Component<'helpers.simple-link', false>;
+  };
+}
+
+export interface ApiPagePage extends Struct.CollectionTypeSchema {
+  collectionName: 'pages';
+  info: {
+    displayName: 'Page';
+    pluralName: 'pages';
+    singularName: 'page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -920,7 +976,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -945,6 +1000,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    profileImage: Schema.Attribute.Media<'images' | 'files'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
@@ -974,8 +1030,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::global-page.global-page': ApiGlobalPageGlobalPage;
       'api::group.group': ApiGroupGroup;
       'api::member.member': ApiMemberMember;
+      'api::page.page': ApiPagePage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

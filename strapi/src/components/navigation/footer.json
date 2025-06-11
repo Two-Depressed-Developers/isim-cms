@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_navigation_footers",
+  "info": {
+    "displayName": "Footer",
+    "icon": "arrowDown",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "copyrightText": {
+      "type": "text",
+      "required": true
+    },
+    "universityLogo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.image-link"
+    },
+    "sections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.simple-section"
+    }
+  }
+}

@@ -12,13 +12,13 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "firstName": {
+    "fullName": {
       "type": "string",
       "required": true
     },
-    "lastName": {
-      "type": "string",
-      "required": true
+    "slug": {
+      "type": "uid",
+      "targetField": "fullName"
     },
     "title": {
       "type": "enumeration",
@@ -49,46 +49,6 @@
     "email": {
       "type": "email"
     },
-    "USOSLink": {
-      "type": "component",
-      "repeatable": false,
-      "component": "helpers.link"
-    },
-    "SKOSLink": {
-      "type": "component",
-      "repeatable": false,
-      "component": "helpers.link"
-    },
-    "BADAPLink": {
-      "type": "component",
-      "repeatable": false,
-      "component": "helpers.link"
-    },
-    "PortfolioLink": {
-      "type": "component",
-      "repeatable": false,
-      "component": "helpers.link"
-    },
-    "forStudents": {
-      "type": "richtext"
-    },
-    "groupSupervisor": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::group.group",
-      "mappedBy": "supervisor"
-    },
-    "groupMembers": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::group.group",
-      "mappedBy": "members"
-    },
-    "Research": {
-      "type": "component",
-      "repeatable": false,
-      "component": "members-comp.research"
-    },
     "room": {
       "type": "string"
     },
@@ -102,6 +62,33 @@
         "PhD Student",
         "Technical staff",
         "Secretary"
+      ]
+    },
+    "USOSLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.simple-link"
+    },
+    "SKOSLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.simple-link"
+    },
+    "BADAPLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.simple-link"
+    },
+    "PortfolioLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "helpers.simple-link"
+    },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.simple-section",
+        "members-comp.research"
       ]
     }
   }
