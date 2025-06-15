@@ -66,12 +66,18 @@
       "configurable": false
     },
     "profileImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "member_profile": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member"
     }
   }
 }
