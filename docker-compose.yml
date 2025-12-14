@@ -1,6 +1,6 @@
 services:
     strapiDB:
-        image: mysql:8
+        image: mysql:9.0.1
         container_name: strapi-db
         ports:
             - "3306:3306"
