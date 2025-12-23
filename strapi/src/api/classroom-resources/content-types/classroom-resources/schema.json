@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "classrooms_resources",
+  "info": {
+    "singularName": "classroom-resources",
+    "pluralName": "classrooms-resources",
+    "displayName": "Classroom"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "building": {
+      "type": "string"
+    },
+    "roomNumber": {
+      "type": "string"
+    },
+    "fullRoomCode": {
+      "type": "string"
+    },
+    "resources": {
+      "type": "json"
+    }
+  }
+}
