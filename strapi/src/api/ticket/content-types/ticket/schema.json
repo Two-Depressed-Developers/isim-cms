@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tickets",
+  "info": {
+    "singularName": "ticket",
+    "pluralName": "tickets",
+    "displayName": "Ticket",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "description": {
+      "type": "text"
+    },
+    "ticketStatus": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "open",
+        "in-progress",
+        "resolved",
+        "closed"
+      ],
+      "default": "pending"
+    },
+    "verificationToken": {
+      "type": "string"
+    },
+    "verifiedAtTime": {
+      "type": "datetime"
+    }
+  }
+}
