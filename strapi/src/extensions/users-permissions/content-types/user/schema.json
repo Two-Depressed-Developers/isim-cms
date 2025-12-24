@@ -11,6 +11,7 @@
   "options": {
     "draftAndPublish": false
   },
+  "pluginOptions": {},
   "attributes": {
     "username": {
       "type": "string",
@@ -78,6 +79,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::member.member"
+    },
+    "sso_uid": {
+      "type": "string"
+    },
+    "temp_confirmation_token": {
+      "type": "string"
     }
   }
 }
