@@ -34,10 +34,6 @@ export interface AdminApiToken extends Struct.CollectionTypeSchema {
         minLength: 1;
       }> &
       Schema.Attribute.DefaultTo<''>;
-    encryptedKey: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
     expiresAt: Schema.Attribute.DateTime;
     lastUsedAt: Schema.Attribute.DateTime;
     lifespan: Schema.Attribute.BigInteger;
@@ -409,6 +405,44 @@ export interface ApiCalendarEventCalendarEvent
   };
 }
 
+export interface ApiConsultationBookingConsultationBooking
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'consultation_bookings';
+  info: {
+    description: '';
+    displayName: 'ConsultationBooking';
+    pluralName: 'consultation-bookings';
+    singularName: 'consultation-booking';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    endTime: Schema.Attribute.DateTime;
+    fieldAndSubject: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::consultation-booking.consultation-booking'
+    > &
+      Schema.Attribute.Private;
+    member: Schema.Attribute.Relation<'oneToOne', 'api::member.member'>;
+    publishedAt: Schema.Attribute.DateTime;
+    reservationStatus: Schema.Attribute.Enumeration<
+      ['pending', 'accepted', 'declined']
+    >;
+    startTime: Schema.Attribute.DateTime;
+    studentEmail: Schema.Attribute.Email;
+    studentName: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGlobalPageGlobalPage extends Struct.SingleTypeSchema {
   collectionName: 'global_pages';
   info: {
@@ -482,6 +516,10 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
   };
   attributes: {
     BADAPLink: Schema.Attribute.Component<'helpers.simple-link', false>;
+    consultationAvailability: Schema.Attribute.Component<
+      'members-comp.consultation-availability',
+      true
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1072,6 +1110,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::calendar-event.calendar-event': ApiCalendarEventCalendarEvent;
+      'api::consultation-booking.consultation-booking': ApiConsultationBookingConsultationBooking;
       'api::global-page.global-page': ApiGlobalPageGlobalPage;
       'api::group.group': ApiGroupGroup;
       'api::member.member': ApiMemberMember;

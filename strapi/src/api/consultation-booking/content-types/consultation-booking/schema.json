@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "consultation_bookings",
+  "info": {
+    "singularName": "consultation-booking",
+    "pluralName": "consultation-bookings",
+    "displayName": "ConsultationBooking",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "studentEmail": {
+      "type": "email"
+    },
+    "startTime": {
+      "type": "datetime"
+    },
+    "endTime": {
+      "type": "datetime"
+    },
+    "reservationStatus": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "accepted",
+        "declined"
+      ]
+    },
+    "member": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member"
+    },
+    "studentName": {
+      "type": "string"
+    },
+    "fieldAndSubject": {
+      "type": "string"
+    }
+  }
+}
