@@ -7,7 +7,16 @@ import { factories } from "@strapi/strapi";
 export default factories.createCoreRouter("api::member.member", {
     config: {
         update: {
-            policies: ["global::is-owner"],
+            policies: [
+                {
+                    name: "global::check-panel-role",
+                    config: { roles: ["StaffMember"] },
+                },
+                {
+                    name: "global::is-owner",
+                    config: {},
+                },
+            ],
         },
     },
 });
