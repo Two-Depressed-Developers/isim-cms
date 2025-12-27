@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_members_comp_consultation_availabilities",
+  "info": {
+    "displayName": "ConsultationAvailability",
+    "icon": "clock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "startTime": {
+      "type": "time",
+      "required": false
+    },
+    "endTime": {
+      "type": "time"
+    },
+    "isActive": {
+      "type": "boolean"
+    },
+    "durationMinutes": {
+      "type": "integer",
+      "default": 10
+    },
+    "dayOfWeek": {
+      "type": "enumeration",
+      "enum": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday"
+      ]
+    }
+  }
+}
