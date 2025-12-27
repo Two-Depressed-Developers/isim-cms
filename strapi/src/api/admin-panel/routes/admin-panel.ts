@@ -8,6 +8,12 @@ module.exports = {
                 auth: {
                     required: true,
                 },
+                policies: [
+                    {
+                        name: "global::check-panel-role",
+                        config: { roles: ["PanelAdmin"] },
+                    },
+                ],
             },
         },
     ],

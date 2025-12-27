@@ -34,6 +34,10 @@ export interface AdminApiToken extends Struct.CollectionTypeSchema {
         minLength: 1;
       }> &
       Schema.Attribute.DefaultTo<''>;
+    encryptedKey: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
     expiresAt: Schema.Attribute.DateTime;
     lastUsedAt: Schema.Attribute.DateTime;
     lifespan: Schema.Attribute.BigInteger;
@@ -1101,6 +1105,10 @@ export interface PluginUsersPermissionsUser
     > &
       Schema.Attribute.Private;
     member_profile: Schema.Attribute.Relation<'oneToOne', 'api::member.member'>;
+    panelRoles: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.role'
+    >;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
