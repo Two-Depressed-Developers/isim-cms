@@ -464,7 +464,7 @@ export interface ApiConsultationBookingConsultationBooking
     member: Schema.Attribute.Relation<'oneToOne', 'api::member.member'>;
     publishedAt: Schema.Attribute.DateTime;
     reservationStatus: Schema.Attribute.Enumeration<
-      ['pending', 'accepted', 'declined']
+      ['unverified', 'pending', 'accepted', 'declined']
     >;
     startTime: Schema.Attribute.DateTime;
     studentEmail: Schema.Attribute.Email;
@@ -472,6 +472,8 @@ export interface ApiConsultationBookingConsultationBooking
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    verificationToken: Schema.Attribute.String;
+    verifiedAtTime: Schema.Attribute.String;
   };
 }
 

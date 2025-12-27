@@ -24,6 +24,7 @@
     "reservationStatus": {
       "type": "enumeration",
       "enum": [
+        "unverified",
         "pending",
         "accepted",
         "declined"
@@ -38,6 +39,12 @@
       "type": "string"
     },
     "fieldAndSubject": {
+      "type": "string"
+    },
+    "verificationToken": {
+      "type": "string"
+    },
+    "verifiedAtTime": {
       "type": "string"
     }
   }
