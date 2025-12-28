@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_research_offers_comp_section_feature_items",
+  "info": {
+    "displayName": "Section-feature-item",
+    "icon": "plus"
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

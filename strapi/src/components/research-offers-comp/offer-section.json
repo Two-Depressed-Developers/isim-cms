@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_research_offers_comp_offer_sections",
+  "info": {
+    "displayName": "Offer-section",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "sectionTitle": {
+      "type": "string",
+      "required": true
+    },
+    "features": {
+      "type": "component",
+      "component": "research-offers-comp.section-feature-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}
