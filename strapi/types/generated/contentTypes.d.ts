@@ -630,6 +630,37 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiDataProposalDataProposal
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'data_proposals';
+  info: {
+    description: '';
+    displayName: 'Data proposal';
+    pluralName: 'data-proposals';
+    singularName: 'data-proposal';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::data-proposal.data-proposal'
+    > &
+      Schema.Attribute.Private;
+    member: Schema.Attribute.Relation<'oneToOne', 'api::member.member'>;
+    publishedAt: Schema.Attribute.DateTime;
+    scrapedData: Schema.Attribute.JSON;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGlobalPageGlobalPage extends Struct.SingleTypeSchema {
   collectionName: 'global_pages';
   info: {
@@ -1457,6 +1488,7 @@ declare module '@strapi/strapi' {
       'api::conference.conference': ApiConferenceConference;
       'api::consultation-booking.consultation-booking': ApiConsultationBookingConsultationBooking;
       'api::course.course': ApiCourseCourse;
+      'api::data-proposal.data-proposal': ApiDataProposalDataProposal;
       'api::global-page.global-page': ApiGlobalPageGlobalPage;
       'api::group.group': ApiGroupGroup;
       'api::journal.journal': ApiJournalJournal;
