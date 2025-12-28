@@ -16,13 +16,13 @@
       "type": "string",
       "required": true
     },
-    "description": {
+    "shortDescription": {
       "type": "text"
     },
-    "link": {
+    "siteLink": {
       "type": "component",
-      "repeatable": false,
-      "component": "helpers.simple-link"
+      "component": "helpers.simple-link",
+      "repeatable": false
     },
     "members": {
       "type": "relation",
@@ -33,6 +33,17 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::member.member"
+    },
+    "longDescription": {
+      "type": "text"
+    },
+    "badapLink": {
+      "type": "component",
+      "component": "helpers.simple-link",
+      "repeatable": false
+    },
+    "keywords": {
+      "type": "text"
     }
   }
 }
