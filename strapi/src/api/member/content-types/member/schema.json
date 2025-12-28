@@ -90,6 +90,11 @@
         "sections.simple-section",
         "members-comp.research"
       ]
+    },
+    "consultationAvailability": {
+      "type": "component",
+      "repeatable": true,
+      "component": "members-comp.consultation-availability"
     }
   }
 }

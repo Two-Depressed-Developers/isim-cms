@@ -48,6 +48,25 @@ export interface HelpersSimpleLink extends Struct.ComponentSchema {
   };
 }
 
+export interface MembersCompConsultationAvailability
+  extends Struct.ComponentSchema {
+  collectionName: 'components_members_comp_consultation_availabilities';
+  info: {
+    description: '';
+    displayName: 'ConsultationAvailability';
+    icon: 'clock';
+  };
+  attributes: {
+    dayOfWeek: Schema.Attribute.Enumeration<
+      ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
+    >;
+    durationMinutes: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
+    endTime: Schema.Attribute.Time;
+    isActive: Schema.Attribute.Boolean;
+    startTime: Schema.Attribute.Time;
+  };
+}
+
 export interface MembersCompResearch extends Struct.ComponentSchema {
   collectionName: 'components_members_comp_research';
   info: {
@@ -126,6 +145,7 @@ declare module '@strapi/strapi' {
       'helpers.image-link': HelpersImageLink;
       'helpers.link': HelpersLink;
       'helpers.simple-link': HelpersSimpleLink;
+      'members-comp.consultation-availability': MembersCompConsultationAvailability;
       'members-comp.research': MembersCompResearch;
       'navigation.footer': NavigationFooter;
       'navigation.header': NavigationHeader;
