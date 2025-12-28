@@ -34,6 +34,10 @@ export interface AdminApiToken extends Struct.CollectionTypeSchema {
         minLength: 1;
       }> &
       Schema.Attribute.DefaultTo<''>;
+    encryptedKey: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
     expiresAt: Schema.Attribute.DateTime;
     lastUsedAt: Schema.Attribute.DateTime;
     lifespan: Schema.Attribute.BigInteger;
@@ -431,6 +435,40 @@ export interface ApiClassroomResourcesClassroomResources
     publishedAt: Schema.Attribute.DateTime;
     resources: Schema.Attribute.JSON;
     roomNumber: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiDataProposalDataProposal
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'data_proposals';
+  info: {
+    description: '';
+    displayName: 'Data proposal';
+    pluralName: 'data-proposals';
+    singularName: 'data-proposal';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::data-proposal.data-proposal'
+    > &
+      Schema.Attribute.Private;
+    member: Schema.Attribute.Relation<'oneToOne', 'api::member.member'>;
+    proposalStatus: Schema.Attribute.Enumeration<
+      ['pending', 'accepted', 'rejected']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    scrapedData: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1140,6 +1178,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::calendar-event.calendar-event': ApiCalendarEventCalendarEvent;
       'api::classroom-resources.classroom-resources': ApiClassroomResourcesClassroomResources;
+      'api::data-proposal.data-proposal': ApiDataProposalDataProposal;
       'api::global-page.global-page': ApiGlobalPageGlobalPage;
       'api::group.group': ApiGroupGroup;
       'api::member.member': ApiMemberMember;
