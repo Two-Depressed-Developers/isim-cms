@@ -15,14 +15,6 @@
     "scrapedData": {
       "type": "json"
     },
-    "proposalStatus": {
-      "type": "enumeration",
-      "enum": [
-        "pending",
-        "accepted",
-        "rejected"
-      ]
-    },
     "member": {
       "type": "relation",
       "relation": "oneToOne",

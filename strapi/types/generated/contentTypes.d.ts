@@ -504,9 +504,6 @@ export interface ApiDataProposalDataProposal
     > &
       Schema.Attribute.Private;
     member: Schema.Attribute.Relation<'oneToOne', 'api::member.member'>;
-    proposalStatus: Schema.Attribute.Enumeration<
-      ['pending', 'accepted', 'rejected']
-    >;
     publishedAt: Schema.Attribute.DateTime;
     scrapedData: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
