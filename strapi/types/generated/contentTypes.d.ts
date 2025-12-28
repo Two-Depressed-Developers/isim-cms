@@ -1139,6 +1139,10 @@ export interface PluginUsersPermissionsUser
     > &
       Schema.Attribute.Private;
     member_profile: Schema.Attribute.Relation<'oneToOne', 'api::member.member'>;
+    panelRoles: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.role'
+    >;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{

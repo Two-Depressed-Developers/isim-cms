@@ -16,10 +16,12 @@ module.exports = {
             .query("plugin::users-permissions.user")
             .findOne({
                 where: { id: user.id },
-                populate: ["role"],
+                populate: ["role", "panelRoles"],
             });
 
-        if (userWithRole.role.name !== "PanelAdmin") {
+        if (
+            !userWithRole.panelRoles.some((role) => role.name === "PanelAdmin")
+        ) {
             return ctx.forbidden("Brak uprawnień");
         }
 
