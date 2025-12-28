@@ -1,5 +1,23 @@
 "use strict";
 
+const getUserRoles = (user) => {
+    const roles = [];
+
+    if (user.role?.name) {
+        roles.push(user.role.name);
+    }
+
+    if (user.panelRoles && Array.isArray(user.panelRoles)) {
+        user.panelRoles.forEach((panelRole) => {
+            if (panelRole?.name) {
+                roles.push(panelRole.name);
+            }
+        });
+    }
+
+    return [...new Set(roles)];
+};
+
 module.exports = {
     async loginLocal(ctx) {
         const { identifier, password } = ctx.request.body;
@@ -17,7 +35,7 @@ module.exports = {
                         { username: identifier },
                     ],
                 },
-                populate: ["role", "member_profile"],
+                populate: ["role", "member_profile", "panelRoles"],
             });
 
         if (!user) {
@@ -42,6 +60,8 @@ module.exports = {
             .service("jwt")
             .issue({ id: user.id });
 
+        const userRoles = getUserRoles(user);
+
         return {
             jwt,
             user: {
@@ -49,7 +69,7 @@ module.exports = {
                 email: user.email,
                 username: user.username,
                 confirmed: user.confirmed,
-                role: user.role?.name ?? null,
+                roles: userRoles,
                 memberProfileSlug: user.member_profile?.slug ?? null,
                 hasSsoLinked: !!user.sso_uid,
             },
@@ -63,7 +83,7 @@ module.exports = {
             .query("plugin::users-permissions.user")
             .findOne({
                 where: { sso_uid: providerId.toString() },
-                populate: ["role", "member_profile"],
+                populate: ["role", "member_profile", "panelRoles"],
             });
 
         if (!user) {
@@ -100,6 +120,8 @@ module.exports = {
             .service("jwt")
             .issue({ id: user.id });
 
+        const userRoles = getUserRoles(user);
+
         return {
             jwt,
             user: {
@@ -107,7 +129,7 @@ module.exports = {
                 email: user.email,
                 username: user.username,
                 confirmed: user.confirmed,
-                role: user.role?.name ?? null,
+                roles: userRoles,
                 memberProfileSlug: user.member_profile?.slug ?? null,
                 hasSsoLinked: true,
             },

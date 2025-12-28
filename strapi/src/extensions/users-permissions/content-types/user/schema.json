@@ -85,6 +85,13 @@
     },
     "temp_confirmation_token": {
       "type": "string"
+    },
+    "panelRoles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.role",
+      "inversedBy": "users",
+      "configurable": false
     }
   }
 }
