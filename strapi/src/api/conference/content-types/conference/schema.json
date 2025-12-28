@@ -1,0 +1,89 @@
+{
+  "kind": "collectionType",
+  "collectionName": "conferences",
+  "info": {
+    "singularName": "conference",
+    "pluralName": "conferences",
+    "displayName": "Conference"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "startDate": {
+      "type": "date",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "endDate": {
+      "type": "date",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "eventType": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "default": "Cykliczne",
+      "enum": [
+        "Cykliczne",
+        "Jednorazowe"
+      ]
+    },
+    "conferenceImage": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "conferenceLink": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "helpers.simple-link",
+      "repeatable": false
+    }
+  }
+}

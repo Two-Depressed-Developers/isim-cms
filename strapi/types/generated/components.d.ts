@@ -124,6 +124,33 @@ export interface NavigationSubLink extends Struct.ComponentSchema {
   };
 }
 
+export interface ResearchOffersCompOfferSection extends Struct.ComponentSchema {
+  collectionName: 'components_research_offers_comp_offer_sections';
+  info: {
+    displayName: 'Offer-section';
+    icon: 'bulletList';
+  };
+  attributes: {
+    features: Schema.Attribute.Component<
+      'research-offers-comp.section-feature-item',
+      true
+    >;
+    sectionTitle: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ResearchOffersCompSectionFeatureItem
+  extends Struct.ComponentSchema {
+  collectionName: 'components_research_offers_comp_section_feature_items';
+  info: {
+    displayName: 'Section-feature-item';
+    icon: 'plus';
+  };
+  attributes: {
+    value: Schema.Attribute.Text;
+  };
+}
+
 export interface SectionsSimpleSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_simple_sections';
   info: {
@@ -150,6 +177,8 @@ declare module '@strapi/strapi' {
       'navigation.footer': NavigationFooter;
       'navigation.header': NavigationHeader;
       'navigation.sub-link': NavigationSubLink;
+      'research-offers-comp.offer-section': ResearchOffersCompOfferSection;
+      'research-offers-comp.section-feature-item': ResearchOffersCompSectionFeatureItem;
       'sections.simple-section': SectionsSimpleSection;
     }
   }

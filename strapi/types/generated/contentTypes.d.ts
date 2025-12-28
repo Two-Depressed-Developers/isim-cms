@@ -441,6 +441,83 @@ export interface ApiClassroomResourcesClassroomResources
   };
 }
 
+export interface ApiConferenceConference extends Struct.CollectionTypeSchema {
+  collectionName: 'conferences';
+  info: {
+    displayName: 'Conference';
+    pluralName: 'conferences';
+    singularName: 'conference';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    conferenceImage: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    conferenceLink: Schema.Attribute.Component<'helpers.simple-link', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    endDate: Schema.Attribute.Date &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    eventType: Schema.Attribute.Enumeration<['Cykliczne', 'Jednorazowe']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Cykliczne'>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::conference.conference'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    startDate: Schema.Attribute.Date &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiConsultationBookingConsultationBooking
   extends Struct.CollectionTypeSchema {
   collectionName: 'consultation_bookings';
@@ -478,6 +555,78 @@ export interface ApiConsultationBookingConsultationBooking
       Schema.Attribute.Private;
     verificationToken: Schema.Attribute.String;
     verifiedAtTime: Schema.Attribute.String;
+  };
+}
+
+export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
+  collectionName: 'courses';
+  info: {
+    displayName: 'Course';
+    pluralName: 'courses';
+    singularName: 'course';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    degreeType: Schema.Attribute.Enumeration<
+      ['I stopie\u0144', 'II stopie\u0144']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'I stopie\u0144'>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    format: Schema.Attribute.Enumeration<['Stacjonarne', 'Niestacjonarne']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Stacjonarne'>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::course.course'>;
+    publishedAt: Schema.Attribute.DateTime;
+    semesterCount: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<7>;
+    syllabusLink: Schema.Attribute.Component<'helpers.simple-link', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -554,18 +703,77 @@ export interface ApiGroupGroup extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    badapLink: Schema.Attribute.Component<'helpers.simple-link', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    link: Schema.Attribute.Component<'helpers.simple-link', false>;
+    keywords: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::group.group'> &
       Schema.Attribute.Private;
+    longDescription: Schema.Attribute.Text;
     members: Schema.Attribute.Relation<'oneToMany', 'api::member.member'>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    shortDescription: Schema.Attribute.Text;
+    siteLink: Schema.Attribute.Component<'helpers.simple-link', false>;
     supervisor: Schema.Attribute.Relation<'oneToOne', 'api::member.member'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiJournalJournal extends Struct.CollectionTypeSchema {
+  collectionName: 'journals';
+  info: {
+    displayName: 'Journal';
+    pluralName: 'journals';
+    singularName: 'journal';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    coverImage: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    journalLink: Schema.Attribute.Component<'helpers.simple-link', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::journal.journal'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -662,6 +870,60 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiResearchOfferResearchOffer
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'research_offers';
+  info: {
+    displayName: 'Research Offer';
+    pluralName: 'research-offers';
+    singularName: 'research-offer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::research-offer.research-offer'
+    >;
+    offerSections: Schema.Attribute.Component<
+      'research-offers-comp.offer-section',
+      true
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1223,12 +1485,16 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::calendar-event.calendar-event': ApiCalendarEventCalendarEvent;
       'api::classroom-resources.classroom-resources': ApiClassroomResourcesClassroomResources;
+      'api::conference.conference': ApiConferenceConference;
       'api::consultation-booking.consultation-booking': ApiConsultationBookingConsultationBooking;
+      'api::course.course': ApiCourseCourse;
       'api::data-proposal.data-proposal': ApiDataProposalDataProposal;
       'api::global-page.global-page': ApiGlobalPageGlobalPage;
       'api::group.group': ApiGroupGroup;
+      'api::journal.journal': ApiJournalJournal;
       'api::member.member': ApiMemberMember;
       'api::page.page': ApiPagePage;
+      'api::research-offer.research-offer': ApiResearchOfferResearchOffer;
       'api::ticket.ticket': ApiTicketTicket;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "research_offers",
+  "info": {
+    "singularName": "research-offer",
+    "pluralName": "research-offers",
+    "displayName": "Research Offer"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "offerSections": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "research-offers-comp.offer-section",
+      "repeatable": true
+    }
+  }
+}
