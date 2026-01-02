@@ -48,6 +48,120 @@ export interface HelpersSimpleLink extends Struct.ComponentSchema {
   };
 }
 
+export interface HomepageCollaborationItem extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_collaboration_items';
+  info: {
+    displayName: 'Collaboration Item';
+    icon: 'briefcase';
+  };
+  attributes: {
+    link: Schema.Attribute.Component<'helpers.simple-link', false>;
+    logo: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface HomepageCollaborations extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_collaborations';
+  info: {
+    displayName: 'Collaborations';
+    icon: 'handHeart';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    items: Schema.Attribute.Component<'homepage.collaboration-item', true> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface HomepageCollectionFeed extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_collection_feeds';
+  info: {
+    displayName: 'Collection Feed';
+    icon: 'apps';
+  };
+  attributes: {
+    conferences: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::conference.conference'
+    >;
+    courses: Schema.Attribute.Relation<'oneToMany', 'api::course.course'>;
+    groups: Schema.Attribute.Relation<'oneToMany', 'api::group.group'>;
+    journals: Schema.Attribute.Relation<'oneToMany', 'api::journal.journal'>;
+    layout: Schema.Attribute.Enumeration<['row_3', 'grid_2x2', 'list']> &
+      Schema.Attribute.Required;
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    research_offers: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::research-offer.research-offer'
+    >;
+    selectionMode: Schema.Attribute.Enumeration<
+      ['newest', 'random', 'manual']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'newest'>;
+    sourceType: Schema.Attribute.Enumeration<
+      ['research-offer', 'research-group', 'conference', 'course', 'journal']
+    > &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface HomepageGroupItem extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_group_items';
+  info: {
+    displayName: 'Group Item';
+    icon: 'message';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    link: Schema.Attribute.Component<'helpers.simple-link', false>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface HomepageHeroSlider extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_hero_sliders';
+  info: {
+    displayName: 'Hero Slider';
+    icon: 'picture';
+  };
+  attributes: {
+    images: Schema.Attribute.Media<'images' | 'files', true> &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface HomepageStudentGroups extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_student_groups';
+  info: {
+    displayName: 'Student Groups';
+    icon: 'discuss';
+  };
+  attributes: {
+    groups: Schema.Attribute.Component<'homepage.group-item', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface HomepageSupervisors extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_supervisors';
+  info: {
+    displayName: 'Supervisors';
+    icon: 'user';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    members: Schema.Attribute.Relation<'oneToMany', 'api::member.member'>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface MembersCompConsultationAvailability
   extends Struct.ComponentSchema {
   collectionName: 'components_members_comp_consultation_availabilities';
@@ -172,6 +286,13 @@ declare module '@strapi/strapi' {
       'helpers.image-link': HelpersImageLink;
       'helpers.link': HelpersLink;
       'helpers.simple-link': HelpersSimpleLink;
+      'homepage.collaboration-item': HomepageCollaborationItem;
+      'homepage.collaborations': HomepageCollaborations;
+      'homepage.collection-feed': HomepageCollectionFeed;
+      'homepage.group-item': HomepageGroupItem;
+      'homepage.hero-slider': HomepageHeroSlider;
+      'homepage.student-groups': HomepageStudentGroups;
+      'homepage.supervisors': HomepageSupervisors;
       'members-comp.consultation-availability': MembersCompConsultationAvailability;
       'members-comp.research': MembersCompResearch;
       'navigation.footer': NavigationFooter;

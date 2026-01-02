@@ -7,8 +7,18 @@ export default {
             config: {
                 auth: false,
                 policies: [],
-                middlewares: []
-            }
-        }
-    ]
+                middlewares: [],
+            },
+        },
+        {
+            method: "GET",
+            path: "/schemas/deep/:uid",
+            handler: "schema-provider.getDeepSchema",
+            config: {
+                auth: false,
+                policies: [],
+                middlewares: [],
+            },
+        },
+    ],
 };
