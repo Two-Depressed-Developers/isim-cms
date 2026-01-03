@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_homepage_hero_sliders",
+  "info": {
+    "displayName": "Hero Slider",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_homepage_supervisors",
+  "info": {
+    "displayName": "Supervisors",
+    "icon": "user"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "description": {
+      "type": "text"
+    },
+    "members": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::member.member"
+    }
+  },
+  "config": {}
+}

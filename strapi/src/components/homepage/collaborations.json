@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_homepage_collaborations",
+  "info": {
+    "displayName": "Collaborations",
+    "icon": "handHeart"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "items": {
+      "type": "component",
+      "component": "homepage.collaboration-item",
+      "repeatable": true,
+      "required": true
+    }
+  },
+  "config": {}
+}
