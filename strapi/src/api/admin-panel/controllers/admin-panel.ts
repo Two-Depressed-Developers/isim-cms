@@ -1,5 +1,7 @@
 "use strict";
 
+const nodeCrypto = require("crypto");
+
 const isValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
@@ -16,7 +18,7 @@ module.exports = {
             .query("plugin::users-permissions.user")
             .findOne({
                 where: { id: user.id },
-                populate: ["role", "panelRoles"],
+                populate: ["panelRoles"],
             });
 
         if (
@@ -30,6 +32,10 @@ module.exports = {
         if (!Array.isArray(emails) || emails.length === 0) {
             return ctx.badRequest("Brak listy emaili");
         }
+
+        const staffRole = await strapi.db
+            .query("plugin::users-permissions.role")
+            .findOne({ where: { name: "StaffMember" } });
 
         const createdUsers = [];
         const failedEmails = [];
@@ -58,19 +64,22 @@ module.exports = {
                     continue;
                 }
 
-                const password = Math.random().toString(36).slice(-8);
+                const tempPassword = nodeCrypto.randomBytes(16).toString("hex");
+                const token = nodeCrypto.randomBytes(64).toString("hex");
 
                 await strapi
                     .plugin("users-permissions")
                     .service("user")
                     .add({
-                        email: email.toLowerCase(),
-                        username: email.split("@")[0],
-                        password,
+                        email,
+                        username: email,
+                        password: tempPassword,
                         confirmed: false,
+                        panelRoles: staffRole ? [staffRole.id] : [],
+                        confirmationToken: token,
                     });
 
-                createdUsers.push({ email });
+                createdUsers.push({ email, token });
             } catch (error) {
                 failedEmails.push({ email, reason: error.message });
             }

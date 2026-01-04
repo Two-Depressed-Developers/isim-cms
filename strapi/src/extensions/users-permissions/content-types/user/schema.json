@@ -66,6 +66,13 @@
       "inversedBy": "users",
       "configurable": false
     },
+    "panelRoles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.role",
+      "inversedBy": "users",
+      "configurable": false
+    },
     "profileImage": {
       "type": "media",
       "multiple": false,
@@ -83,15 +90,9 @@
     "sso_uid": {
       "type": "string"
     },
-    "temp_confirmation_token": {
-      "type": "string"
-    },
-    "panelRoles": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.role",
-      "inversedBy": "users",
-      "configurable": false
+    "reset_password_expires": {
+      "type": "datetime",
+      "private": true
     }
   }
 }

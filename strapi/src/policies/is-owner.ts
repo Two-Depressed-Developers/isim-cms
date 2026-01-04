@@ -5,6 +5,12 @@
  */
 
 module.exports = async (policyContext, config, { strapi }) => {
+    const apiKey = policyContext.request.header["x-api-secret-key"];
+    if (apiKey && apiKey === process.env.API_SECRET_KEY) {
+        strapi.log.info("is-owner policy: Access granted via API_SECRET_KEY.");
+        return true;
+    }
+
     const { user } = policyContext.state;
 
     const { id: memberProfileId } = policyContext.params;
