@@ -791,6 +791,42 @@ export interface ApiGroupGroup extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
+  collectionName: 'homepages';
+  info: {
+    displayName: 'Homepage';
+    pluralName: 'homepages';
+    singularName: 'homepage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::homepage.homepage'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'homepage.hero-slider',
+        'homepage.supervisors',
+        'homepage.collaborations',
+        'homepage.student-groups',
+        'homepage.collection-feed',
+      ]
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiJournalJournal extends Struct.CollectionTypeSchema {
   collectionName: 'journals';
   info: {
@@ -1573,6 +1609,7 @@ declare module '@strapi/strapi' {
       'api::data-proposal.data-proposal': ApiDataProposalDataProposal;
       'api::global-page.global-page': ApiGlobalPageGlobalPage;
       'api::group.group': ApiGroupGroup;
+      'api::homepage.homepage': ApiHomepageHomepage;
       'api::journal.journal': ApiJournalJournal;
       'api::member.member': ApiMemberMember;
       'api::page.page': ApiPagePage;

@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_homepage_group_items",
+  "info": {
+    "displayName": "Group Item",
+    "icon": "message"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "link": {
+      "type": "component",
+      "component": "helpers.simple-link",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}

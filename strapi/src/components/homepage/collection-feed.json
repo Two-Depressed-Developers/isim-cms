@@ -1,0 +1,74 @@
+{
+  "collectionName": "components_homepage_collection_feeds",
+  "info": {
+    "displayName": "Collection Feed",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "sourceType": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "research-offer",
+        "research-group",
+        "conference",
+        "course",
+        "journal"
+      ]
+    },
+    "layout": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "row_3",
+        "grid_2x2",
+        "list"
+      ]
+    },
+    "selectionMode": {
+      "type": "enumeration",
+      "required": true,
+      "default": "newest",
+      "enum": [
+        "newest",
+        "random",
+        "manual"
+      ]
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    },
+    "research_offers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::research-offer.research-offer"
+    },
+    "groups": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::group.group"
+    },
+    "conferences": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::conference.conference"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course"
+    },
+    "journals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::journal.journal"
+    }
+  },
+  "config": {}
+}

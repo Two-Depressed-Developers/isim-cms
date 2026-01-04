@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_homepage_collaboration_items",
+  "info": {
+    "displayName": "Collaboration Item",
+    "icon": "briefcase"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "component",
+      "component": "helpers.simple-link",
+      "repeatable": false,
+      "required": false
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    }
+  },
+  "config": {}
+}
