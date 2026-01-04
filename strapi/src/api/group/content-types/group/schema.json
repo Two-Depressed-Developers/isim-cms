@@ -10,17 +10,36 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "name": {
       "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "required": true
     },
     "shortDescription": {
-      "type": "text"
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "siteLink": {
       "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "component": "helpers.simple-link",
       "repeatable": false
     },
@@ -35,15 +54,30 @@
       "target": "api::member.member"
     },
     "longDescription": {
-      "type": "text"
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "badapLink": {
       "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "component": "helpers.simple-link",
       "repeatable": false
     },
     "keywords": {
-      "type": "text"
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
