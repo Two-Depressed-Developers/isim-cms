@@ -177,6 +177,7 @@ export interface MembersCompConsultationAvailability
     durationMinutes: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
     endTime: Schema.Attribute.Time;
     isActive: Schema.Attribute.Boolean;
+    maxAttendees: Schema.Attribute.Integer;
     startTime: Schema.Attribute.Time;
   };
 }
