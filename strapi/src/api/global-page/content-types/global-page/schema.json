@@ -10,17 +10,31 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "header": {
       "type": "component",
-      "repeatable": false,
-      "component": "navigation.header"
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "navigation.header",
+      "repeatable": false
     },
     "footer": {
       "type": "component",
-      "repeatable": false,
-      "component": "navigation.footer"
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "navigation.footer",
+      "repeatable": false
     }
   }
 }
