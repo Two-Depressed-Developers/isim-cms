@@ -10,16 +10,9 @@ module.exports = {
             method: "POST",
             path: "/auth-custom/sso-login",
             handler: "auth-custom.loginSSO",
-            config: { auth: false },
-        },
-        {
-            method: "POST",
-            path: "/auth-custom/unlink-account",
-            handler: "auth-custom.unlinkAccount",
             config: {
-                auth: {
-                    required: true,
-                },
+                auth: false,
+                policies: ["global::has-api-key"],
             },
         },
         {

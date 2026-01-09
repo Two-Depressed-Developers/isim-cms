@@ -87,9 +87,6 @@
       "relation": "oneToOne",
       "target": "api::member.member"
     },
-    "sso_uid": {
-      "type": "string"
-    },
     "reset_password_expires": {
       "type": "datetime",
       "private": true
