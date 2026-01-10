@@ -18,6 +18,20 @@ const getUserRoles = (user) => {
     return [...new Set(roles)];
 };
 
+const prepareUserDataToReturn = (user, roles = null) => {
+    const userRoles = roles || getUserRoles(user);
+
+    return {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        confirmed: user.confirmed,
+        roles: userRoles,
+        memberProfileSlug: user.member_profile?.slug ?? null,
+        hasSsoLinked: !!user.sso_uid,
+    };
+};
+
 module.exports = {
     async loginLocal(ctx) {
         const { identifier, password } = ctx.request.body;
@@ -64,96 +78,51 @@ module.exports = {
 
         return {
             jwt,
-            user: {
-                id: user.id,
-                email: user.email,
-                username: user.username,
-                confirmed: user.confirmed,
-                roles: userRoles,
-                memberProfileSlug: user.member_profile?.slug ?? null,
-                hasSsoLinked: !!user.sso_uid,
-            },
+            user: prepareUserDataToReturn(user, userRoles),
         };
     },
 
     async loginSSO(ctx) {
-        const { providerId, email } = ctx.request.body;
+        const { email, groups = [] } = ctx.request.body;
+        if (!email) return ctx.badRequest("Email jest wymagany");
 
-        let user = await strapi.db
-            .query("plugin::users-permissions.user")
-            .findOne({
-                where: { sso_uid: providerId.toString() },
+        const user = await strapi
+            .documents("plugin::users-permissions.user")
+            .findFirst({
+                filters: { email: email.toLowerCase() },
                 populate: ["role", "member_profile", "panelRoles"],
             });
 
-        if (!user) {
-            const userByEmail = await strapi.db
-                .query("plugin::users-permissions.user")
-                .findOne({
-                    where: { email: email.toLowerCase() },
-                });
+        if (!user) return ctx.badRequest("UserNotFound");
+        if (user.blocked) return ctx.badRequest("Konto jest zablokowane");
 
-            if (!userByEmail) {
-                return ctx.badRequest("UserNotFound");
-            }
+        const filteredGroups = groups.filter((g) => g !== "authentik Admins");
+        const roles = filteredGroups.length
+            ? await strapi
+                  .documents("plugin::users-permissions.role")
+                  .findMany({
+                      filters: { name: { $in: filteredGroups } },
+                      fields: ["id"],
+                  })
+            : [];
 
-            await strapi.entityService.update(
-                "plugin::users-permissions.user",
-                userByEmail.id,
-                {
-                    data: { sso_uid: providerId.toString() },
-                }
-            );
-
-            user = await strapi.db
-                .query("plugin::users-permissions.user")
-                .findOne({
-                    where: { id: userByEmail.id },
-                    populate: ["role", "member_profile"],
-                });
-        }
-
-        if (user.blocked) return ctx.badRequest("Konto zablokowane");
+        const updatedUser = await strapi
+            .documents("plugin::users-permissions.user")
+            .update({
+                documentId: user.documentId,
+                data: { panelRoles: { set: roles.map((r) => r.id) } },
+                populate: ["role", "panelRoles", "member_profile"],
+            });
 
         const jwt = strapi
             .plugin("users-permissions")
             .service("jwt")
             .issue({ id: user.id });
 
-        const userRoles = getUserRoles(user);
-
         return {
             jwt,
-            user: {
-                id: user.id,
-                email: user.email,
-                username: user.username,
-                confirmed: user.confirmed,
-                roles: userRoles,
-                memberProfileSlug: user.member_profile?.slug ?? null,
-                hasSsoLinked: true,
-            },
+            user: prepareUserDataToReturn(updatedUser),
         };
-    },
-
-    async unlinkAccount(ctx) {
-        const user = ctx.state.user;
-
-        await strapi.entityService.update(
-            "plugin::users-permissions.user",
-            user.id,
-            {
-                data: {
-                    sso_uid: null,
-                },
-            }
-        );
-
-        const updatedUser = await strapi.db
-            .query("plugin::users-permissions.user")
-            .findOne({ where: { id: user.id } });
-
-        return { success: true, user: updatedUser };
     },
 
     async verifyConfirmationToken(ctx) {
