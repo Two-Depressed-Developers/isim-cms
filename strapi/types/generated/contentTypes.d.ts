@@ -373,6 +373,90 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAccessibilityPageAccessibilityPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'accessibility_pages';
+  info: {
+    displayName: 'Accessibility Page';
+    pluralName: 'accessibility-pages';
+    singularName: 'accessibility-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    appealPersonContact: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::member.member'
+    >;
+    complianceStatus: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    enforcementProcedureText: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    feedbackPersonContact: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::member.member'
+    >;
+    feedbackProcedureText: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    introText: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::accessibility-page.accessibility-page'
+    >;
+    preparationDate: Schema.Attribute.Date &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publicationDate: Schema.Attribute.Date &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCalendarEventCalendarEvent
   extends Struct.CollectionTypeSchema {
   collectionName: 'calendar_events';
@@ -1722,6 +1806,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::accessibility-page.accessibility-page': ApiAccessibilityPageAccessibilityPage;
       'api::calendar-event.calendar-event': ApiCalendarEventCalendarEvent;
       'api::classroom-resources.classroom-resources': ApiClassroomResourcesClassroomResources;
       'api::conference.conference': ApiConferenceConference;

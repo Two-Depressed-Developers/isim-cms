@@ -1,0 +1,87 @@
+{
+  "kind": "singleType",
+  "collectionName": "accessibility_pages",
+  "info": {
+    "singularName": "accessibility-page",
+    "pluralName": "accessibility-pages",
+    "displayName": "Accessibility Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "publicationDate": {
+      "type": "date",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "introText": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "complianceStatus": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "preparationDate": {
+      "type": "date",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "feedbackPersonContact": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member"
+    },
+    "feedbackProcedureText": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "enforcementProcedureText": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "appealPersonContact": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member"
+    }
+  }
+}
