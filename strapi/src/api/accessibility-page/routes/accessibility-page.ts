@@ -1,0 +1,7 @@
+/**
+ * accessibility-page router
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreRouter('api::accessibility-page.accessibility-page');
