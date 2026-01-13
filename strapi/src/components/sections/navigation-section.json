@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_navigation_sections",
+  "info": {
+    "displayName": "Navigation Section",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "pages": {
+      "type": "component",
+      "component": "helpers.page-nav",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_helpers_page_navs",
+  "info": {
+    "displayName": "Page Nav",
+    "icon": "earth"
+  },
+  "options": {},
+  "attributes": {
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  },
+  "config": {}
+}
