@@ -33,6 +33,17 @@ export interface HelpersLink extends Struct.ComponentSchema {
   };
 }
 
+export interface HelpersPageNav extends Struct.ComponentSchema {
+  collectionName: 'components_helpers_page_navs';
+  info: {
+    displayName: 'Page Nav';
+    icon: 'earth';
+  };
+  attributes: {
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+  };
+}
+
 export interface HelpersSimpleLink extends Struct.ComponentSchema {
   collectionName: 'components_helpers_simple_links';
   info: {
@@ -205,6 +216,10 @@ export interface NavigationFooter extends Struct.ComponentSchema {
   };
   attributes: {
     copyrightText: Schema.Attribute.Text & Schema.Attribute.Required;
+    navigation: Schema.Attribute.Component<
+      'sections.navigation-section',
+      false
+    >;
     sections: Schema.Attribute.Component<'sections.simple-section', true>;
     universityLogo: Schema.Attribute.Component<'helpers.image-link', false>;
   };
@@ -266,6 +281,18 @@ export interface ResearchOffersCompSectionFeatureItem
   };
 }
 
+export interface SectionsNavigationSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_navigation_sections';
+  info: {
+    displayName: 'Navigation Section';
+    icon: 'bulletList';
+  };
+  attributes: {
+    pages: Schema.Attribute.Component<'helpers.page-nav', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsSimpleSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_simple_sections';
   info: {
@@ -286,6 +313,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'helpers.image-link': HelpersImageLink;
       'helpers.link': HelpersLink;
+      'helpers.page-nav': HelpersPageNav;
       'helpers.simple-link': HelpersSimpleLink;
       'homepage.collaboration-item': HomepageCollaborationItem;
       'homepage.collaborations': HomepageCollaborations;
@@ -301,6 +329,7 @@ declare module '@strapi/strapi' {
       'navigation.sub-link': NavigationSubLink;
       'research-offers-comp.offer-section': ResearchOffersCompOfferSection;
       'research-offers-comp.section-feature-item': ResearchOffersCompSectionFeatureItem;
+      'sections.navigation-section': SectionsNavigationSection;
       'sections.simple-section': SectionsSimpleSection;
     }
   }
