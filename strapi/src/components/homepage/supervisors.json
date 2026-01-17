@@ -10,13 +10,17 @@
       "type": "string",
       "required": false
     },
+    "eyebrow": {
+      "type": "string"
+    },
     "description": {
       "type": "text"
     },
-    "members": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::member.member"
+    "supervisors": {
+      "type": "component",
+      "component": "homepage.supervisor-card",
+      "repeatable": true,
+      "required": true
     }
   },
   "config": {}

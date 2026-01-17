@@ -16,18 +16,17 @@
     },
     "isExternal": {
       "type": "boolean",
-      "default": false,
-      "required": true
+      "required": true,
+      "default": false
     },
     "openInNewWindow": {
       "type": "boolean",
       "default": false
     },
     "subLinks": {
-      "displayName": "SubLink",
       "type": "component",
-      "repeatable": true,
-      "component": "navigation.sub-link"
+      "component": "navigation.sub-link",
+      "repeatable": true
     },
     "page": {
       "type": "relation",

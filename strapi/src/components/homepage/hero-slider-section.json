@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_homepage_hero_slider_sections",
+  "info": {
+    "displayName": "Hero Slider Section",
+    "icon": "collapse"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "cta": {
+      "type": "component",
+      "component": "helpers.link",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}

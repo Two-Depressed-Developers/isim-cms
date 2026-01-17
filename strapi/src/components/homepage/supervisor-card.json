@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_homepage_supervisor_cards",
+  "info": {
+    "displayName": "Supervisor Card",
+    "icon": "user"
+  },
+  "options": {},
+  "attributes": {
+    "role": {
+      "type": "string",
+      "required": true
+    },
+    "member": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member"
+    }
+  },
+  "config": {}
+}

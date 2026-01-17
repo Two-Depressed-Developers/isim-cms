@@ -9,6 +9,9 @@
     "title": {
       "type": "string"
     },
+    "eyebrow": {
+      "type": "string"
+    },
     "description": {
       "type": "text"
     },

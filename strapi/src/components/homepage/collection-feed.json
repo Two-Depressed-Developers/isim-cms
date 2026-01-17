@@ -9,6 +9,9 @@
     "title": {
       "type": "string"
     },
+    "eyebrow": {
+      "type": "string"
+    },
     "sourceType": {
       "type": "enumeration",
       "required": true,
