@@ -81,6 +81,7 @@ export interface HomepageCollaborations extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text;
+    eyebrow: Schema.Attribute.String;
     items: Schema.Attribute.Component<'homepage.collaboration-item', true> &
       Schema.Attribute.Required;
     title: Schema.Attribute.String;
@@ -99,6 +100,7 @@ export interface HomepageCollectionFeed extends Struct.ComponentSchema {
       'api::conference.conference'
     >;
     courses: Schema.Attribute.Relation<'oneToMany', 'api::course.course'>;
+    eyebrow: Schema.Attribute.String;
     groups: Schema.Attribute.Relation<'oneToMany', 'api::group.group'>;
     journals: Schema.Attribute.Relation<'oneToMany', 'api::journal.journal'>;
     layout: Schema.Attribute.Enumeration<['row_3', 'grid_2x2', 'list']> &
@@ -143,8 +145,23 @@ export interface HomepageHeroSlider extends Struct.ComponentSchema {
     icon: 'picture';
   };
   attributes: {
-    images: Schema.Attribute.Media<'images' | 'files', true> &
+    slides: Schema.Attribute.Component<'homepage.hero-slider-section', true> &
       Schema.Attribute.Required;
+  };
+}
+
+export interface HomepageHeroSliderSection extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_hero_slider_sections';
+  info: {
+    displayName: 'Hero Slider Section';
+    icon: 'collapse';
+  };
+  attributes: {
+    cta: Schema.Attribute.Component<'helpers.link', false>;
+    photo: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -155,8 +172,21 @@ export interface HomepageStudentGroups extends Struct.ComponentSchema {
     icon: 'discuss';
   };
   attributes: {
+    eyebrow: Schema.Attribute.String;
     groups: Schema.Attribute.Component<'homepage.group-item', true>;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface HomepageSupervisorCard extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_supervisor_cards';
+  info: {
+    displayName: 'Supervisor Card';
+    icon: 'user';
+  };
+  attributes: {
+    member: Schema.Attribute.Relation<'oneToOne', 'api::member.member'>;
+    role: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -168,7 +198,9 @@ export interface HomepageSupervisors extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text;
-    members: Schema.Attribute.Relation<'oneToMany', 'api::member.member'>;
+    eyebrow: Schema.Attribute.String;
+    supervisors: Schema.Attribute.Component<'homepage.supervisor-card', true> &
+      Schema.Attribute.Required;
     title: Schema.Attribute.String;
   };
 }
@@ -234,6 +266,8 @@ export interface NavigationHeader extends Struct.ComponentSchema {
   attributes: {
     links: Schema.Attribute.Component<'helpers.link', true>;
     logo: Schema.Attribute.Component<'helpers.image-link', false>;
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -320,7 +354,9 @@ declare module '@strapi/strapi' {
       'homepage.collection-feed': HomepageCollectionFeed;
       'homepage.group-item': HomepageGroupItem;
       'homepage.hero-slider': HomepageHeroSlider;
+      'homepage.hero-slider-section': HomepageHeroSliderSection;
       'homepage.student-groups': HomepageStudentGroups;
+      'homepage.supervisor-card': HomepageSupervisorCard;
       'homepage.supervisors': HomepageSupervisors;
       'members-comp.consultation-availability': MembersCompConsultationAvailability;
       'members-comp.research': MembersCompResearch;

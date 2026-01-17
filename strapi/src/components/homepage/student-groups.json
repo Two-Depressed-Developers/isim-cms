@@ -9,6 +9,9 @@
     "title": {
       "type": "string"
     },
+    "eyebrow": {
+      "type": "string"
+    },
     "groups": {
       "type": "component",
       "component": "homepage.group-item",

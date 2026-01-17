@@ -6,15 +6,21 @@
   },
   "options": {},
   "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
     "logo": {
       "type": "component",
-      "repeatable": false,
-      "component": "helpers.image-link"
+      "component": "helpers.image-link",
+      "repeatable": false
     },
     "links": {
       "type": "component",
-      "repeatable": true,
-      "component": "helpers.link"
+      "component": "helpers.link",
+      "repeatable": true
     }
   }
 }

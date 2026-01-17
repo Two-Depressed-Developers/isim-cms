@@ -6,14 +6,11 @@
   },
   "options": {},
   "attributes": {
-    "images": {
-      "type": "media",
-      "multiple": true,
-      "required": true,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
+    "slides": {
+      "type": "component",
+      "component": "homepage.hero-slider-section",
+      "repeatable": true,
+      "required": true
     }
   },
   "config": {}
